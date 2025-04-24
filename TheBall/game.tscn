@@ -1,0 +1,150 @@
+[gd_scene load_steps=11 format=3 uid="uid://dgla452iufy52"]
+
+[ext_resource type="PackedScene" uid="uid://cb8ghnddmb4xx" path="res://objects/ball.tscn" id="1"]
+[ext_resource type="Script" path="res://CanvasLayer.gd" id="1_upi54"]
+[ext_resource type="PackedScene" uid="uid://3ta405yplf6a" path="res://models/map/root_scene.tscn" id="2_fj4q7"]
+[ext_resource type="Script" path="res://tp1.gd" id="3_sagol"]
+
+[sub_resource type="GDScript" id="1"]
+script/source = "extends Camera3D
+
+@onready var ball = $'../ball'
+
+func _physics_process(delta):
+	if Input.is_action_just_pressed(\"ui_cancel\"):
+		get_tree().quit()
+		return
+
+	var pos = transform.origin.lerp(ball.transform.origin+Vector3(-1, 3, 3), 0.05)
+	look_at_from_position(pos, ball.transform.origin, Vector3.UP)
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ssowt"]
+sky_top_color = Color(0.411315, 0.455969, 0.486389, 1)
+sky_horizon_color = Color(0.663435, 0.655918, 0.622538, 1)
+sky_energy_multiplier = 3.52
+ground_bottom_color = Color(0.0985031, 0.192756, 0.201201, 1)
+ground_energy_multiplier = 25.49
+sun_angle_max = 75.56
+sun_curve = 0.00144274
+
+[sub_resource type="Sky" id="Sky_olauf"]
+sky_material = SubResource("ProceduralSkyMaterial_ssowt")
+
+[sub_resource type="Environment" id="Environment_u7xug"]
+background_mode = 2
+background_energy_multiplier = 1.51
+sky = SubResource("Sky_olauf")
+ambient_light_energy = 1.35
+tonemap_exposure = 1.1
+ssao_enabled = true
+ssao_radius = 16.0
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(1.07813e-05, 0.757716, 0.9518, 1)
+fog_light_energy = 0.83
+fog_density = 0.0243
+fog_aerial_perspective = 0.558
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ctxll"]
+size = Vector3(49.812, 2.46399, 138.561)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rw6o5"]
+size = Vector3(2.26733, 3.51904, 1)
+
+[node name="game" type="Node"]
+
+[node name="world" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 0.962876, 0.269945, 0, -0.269945, 0.962876, 0, 3.53353, 5.92726)
+script = SubResource("1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="world/Camera3D"]
+script = ExtResource("1_upi54")
+
+[node name="Label" type="Label" parent="world/Camera3D/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 41
+text = "Падений:"
+
+[node name="Label2" type="Label" parent="world/Camera3D/CanvasLayer"]
+offset_left = 205.0
+offset_right = 402.0
+offset_bottom = 57.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 41
+text = "0"
+
+[node name="Label3" type="Label" parent="world/Camera3D/CanvasLayer"]
+offset_left = 330.0
+offset_top = 227.0
+offset_right = 891.0
+offset_bottom = 344.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 41
+text = "WASD - управление шаром
+Space - прыжок
+
+Задача - Пройти 3 уровня"
+
+[node name="ball" parent="world" instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.496188, -0.864743)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="world"]
+environment = SubResource("Environment_u7xug")
+
+[node name="Root Scene" parent="." instance=ExtResource("2_fj4q7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0959249, -37.6304, -10.487)
+
+[node name="dead_memori" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.03199, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="dead_memori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.0105, -38.2858, -31.8368)
+shape = SubResource("BoxShape3D_ctxll")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dead_memori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42296, -1.78321, -31.8368)
+shape = SubResource("BoxShape3D_ctxll")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="dead_memori"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 150.148, -38.2858, -57.235)
+shape = SubResource("BoxShape3D_ctxll")
+
+[node name="teleports" type="Node3D" parent="."]
+
+[node name="tp1" type="Area3D" parent="teleports"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0868475, 0, -67.4109)
+script = ExtResource("3_sagol")
+next_position = Vector3(78.2751, -36.452, 2.11324)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="teleports/tp1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228149, 1.25952, 0)
+shape = SubResource("BoxShape3D_rw6o5")
+
+[node name="tp2" type="Area3D" parent="teleports"]
+transform = Transform3D(0.734216, 0.678916, 0, -0.678916, 0.734216, 0, 0, 0, 1, 78.5795, -36.38, -67.9462)
+script = ExtResource("3_sagol")
+next_position = Vector3(149.612, -36.5484, 1.92778)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="teleports/tp2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228149, 1.25952, 0)
+shape = SubResource("BoxShape3D_rw6o5")
+
+[node name="tp3" type="Area3D" parent="teleports"]
+transform = Transform3D(0.734216, 0.678916, 0, -0.678916, 0.734216, 0, 0, 0, 1, 149.716, -33.3144, -113.503)
+script = ExtResource("3_sagol")
+next_position = Vector3(149.612, -36.5484, 1.92778)
+end = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="teleports/tp3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.228149, 1.25952, 0)
+shape = SubResource("BoxShape3D_rw6o5")
+
+[connection signal="body_entered" from="dead_memori" to="world/ball" method="_on_area_3d_body_entered"]

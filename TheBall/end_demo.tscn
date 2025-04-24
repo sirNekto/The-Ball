@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://6138u8oj4fpe"]
+
+[ext_resource type="Script" path="res://end_demo.gd" id="1_gloqv"]
+[ext_resource type="Texture2D" uid="uid://d3g4q64cil5o7" path="res://images/end.png" id="1_xwcas"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(-2, 1)
+script = ExtResource("1_gloqv")
+
+[node name="End" type="Sprite2D" parent="."]
+position = Vector2(839, 442)
+texture = ExtResource("1_xwcas")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 387.0
+offset_top = 432.0
+offset_right = 584.0
+offset_bottom = 489.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 41
+text = "Падений:"
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = 592.0
+offset_top = 432.0
+offset_right = 789.0
+offset_bottom = 489.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 41
+text = "0"
+
+[node name="Label3" type="Label" parent="CanvasLayer"]
+offset_left = 279.0
+offset_top = 107.0
+offset_right = 768.0
+offset_bottom = 320.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 156
+text = "Конец"
