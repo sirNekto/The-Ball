@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://danim4e2772wh"]
+
+[ext_resource type="PackedScene" uid="uid://5rhqaxlwh28r" path="res://objects/block_base.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://objects/block_red.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://crd0rw0tn35of" path="res://objects/flag.tscn" id="3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jwttm"]
+
+[sub_resource type="Sky" id="2"]
+sky_material = SubResource("ProceduralSkyMaterial_jwttm")
+
+[sub_resource type="Environment" id="1"]
+background_mode = 2
+sky = SubResource("2")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 1.91
+
+[node name="level_base" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.746301, 0.309804, -0.589115, 0, 0.885077, 0.465445, 0.665608, -0.347362, 0.660534, 0, 7.45401, 0)
+shadow_enabled = true
+
+[node name="block_base" parent="." instance=ExtResource("1")]
+
+[node name="block_base2" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="block_base4" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="block_base5" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -4)
+
+[node name="block_base6" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -6)
+
+[node name="block_base7" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1, -8)
+
+[node name="block_base8" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -1, -8)
+
+[node name="block_base9" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -1, -8)
+
+[node name="block_base10" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -1, -8)
+
+[node name="block_red" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -1, -8)
+
+[node name="block_red2" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -1, -8)
+
+[node name="block_red3" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -1, -8)
+
+[node name="flag" parent="." instance=ExtResource("3")]
+transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, -14.1738, -0.465646, -7.93492)
